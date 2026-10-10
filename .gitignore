@@ -1,0 +1,5 @@
+*.o
+ls
+obj/
+.DS_Store
+*.core
