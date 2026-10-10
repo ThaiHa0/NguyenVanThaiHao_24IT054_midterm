@@ -63,70 +63,27 @@ toàn bộ GNU `ls`.
 
 Mã nguồn bao gồm xử lý cho **19 tùy chọn** trong tài liệu:
 
-  -----------------------------------------------------------------------
-                  Tùy chọn                 Ý nghĩa
-  ---------------------------------------- ------------------------------
-                    `-a`                   Hiển thị tất cả mục, kể cả `.`
-                                           và `..`.
-
-                    `-A`                   Hiển thị mục ẩn nhưng loại trừ
-                                           `.` và `..`. Tự động bật cho
-                                           super-user (theo man page).
-
-                    `-c`                   Dùng thời điểm thay đổi trạng
-                                           thái tập tin (ctime) trong chế
-                                           độ thời gian.
-
-                    `-d`                   Hiển thị chính thư mục, không
-                                           liệt kê nội dung. Ghi đè `-R`.
-
-                    `-F`                   Thêm ký hiệu phân loại (`/`,
-                                           `*`, `@`, `=`, `\|`, `%` ...).
-
-                    `-f`                   Không sắp xếp danh sách.
-
-                    `-h`                   Định dạng kích thước/số block
-                                           dễ đọc khi đi với `-l` hoặc
-                                           `-s`. Ghi đè `-k`.
-
-                    `-i`                   Hiển thị số inode.
-
-                    `-k`                   Dùng đơn vị kilobyte cho thông
-                                           tin block khi đi với `-s`. Ghi
-                                           đè `-h`.
-
-                    `-l`                   Hiển thị danh sách chi tiết
-                                           (long format).
-
-                    `-n`                   Tương tự `-l`, hiển thị
-                                           UID/GID dưới dạng số.
-
-                    `-q`                   Thay byte không in được bằng
-                                           `?` (mặc định khi stdout là
-                                           terminal).
-
-                    `-R`                   Duyệt đệ quy các thư mục con.
-                                           Ghi đè `-d`.
-
-                    `-r`                   Đảo ngược thứ tự sắp xếp.
-
-                    `-S`                   Sắp xếp theo kích thước giảm
-                                           dần.
-
-                    `-s`                   Hiển thị số block đã sử dụng.
-
-                    `-t`                   Sắp xếp theo thời gian, mới
-                                           nhất trước.
-
-                    `-u`                   Dùng thời điểm truy cập
-                                           (atime) trong chế độ thời
-                                           gian.
-
-                    `-w`                   In nguyên dạng tên tập tin, kể
-                                           cả ký tự không in được (mặc
-                                           định khi stdout không phải
-                                           terminal).
-  -----------------------------------------------------------------------
+| Tùy chọn | Ý nghĩa |
+|:--:|---|
+| `-a` | Hiển thị tất cả các tệp, bao gồm cả tệp ẩn (bắt đầu bằng .). |
+| `-A` | Hiển thị tệp ẩn nhưng bỏ qua hai mục đặc biệt . và ... |
+| `-d` | Liệt kê thư mục như một file thông thường, không liệt kê file con. |
+| `-R` | Duyệt và liệt kê đệ quy toàn bộ cây thư mục con. |
+| `-l` | Hiển thị định dạng chi tiết (long format): quyền, link, user, group, size, time. |
+| `-n` | Giống -l nhưng hiển thị User ID (UID) và Group ID (GID) ở dạng số. |
+| `-s` | Hiển thị số lượng khối (blocks) thực tế mà file chiếm dụng. |
+| `-i` | Hiển thị số hiệu Inode (file serial number) của từng tệp. |
+| `-h` | Hiển thị dung lượng dạng Human-readable (B, K, M, G). |
+| `-k` | Hiển thị dung lượng/block theo đơn vị Kilobytes (1024 bytes). |
+| `-S` | Sắp xếp theo kích thước file giảm dần. |
+| `-t` | Sắp xếp theo mốc thời gian giảm dần. |
+| `-r` | Đảo ngược thứ tự sắp xếp. |
+| `-f` | Không sắp xếp, in theo thứ tự đọc trong ổ đĩa; tự bật -a. |
+| `-c` | Dùng mốc thời gian thay đổi trạng thái tệp (ctime) cho -t hoặc -l. |
+| `-u` | Dùng mốc thời gian truy cập gần nhất (atime) cho -t hoặc -l. |
+| `-F` | Thêm ký tự đánh dấu kiểu file (/ dir, * exec, @ symlink, = socket, | FIFO). |
+| `-q` | Chuyển các ký tự không in được thành dấu ?. |
+| `-w` | Buộc in thô (raw) các ký tự không in được. |
 
 Các tùy chọn có thể kết hợp, chẳng hạn `-la`, `-ltr`, `-Rla`. Chương
 trình có xử lý những nhóm tùy chọn mà lựa chọn phía sau ghi đè lựa chọn
@@ -725,50 +682,17 @@ File `.gitignore` đã cấu hình sẵn để loại trừ các file này.
 
 ## Xử lý sự cố
 
-  ---------------------------------------------------------------------------------------------------
-  Hiện tượng                     Nguyên nhân có thể      Hướng xử lý
-  ------------------------------ ----------------------- --------------------------------------------
-  WinSCP báo                     SSH chưa chạy hoặc NAT  Kiểm tra `sshd`, địa chỉ IP và cổng SSH.
-  `Connection refused`           forward chưa đúng       
-
-  WinSCP báo                     Sai username/mật khẩu   Dùng tài khoản NetBSD bình thường, kiểm tra
-  `Authentication failed`                                thông tin đăng nhập.
-
-  `make: not found`              Thiếu công cụ phát      Kiểm tra `command -v make` và bộ cài NetBSD.
-                                 triển hoặc PATH         
-
-  `cc: not found`                Thiếu trình biên dịch   Kiểm tra `command -v cc`, cài bộ công cụ
-                                                         phát triển phù hợp.
-
-  `don't know how to make ...`   Sai thư mục hoặc mục    Chạy `pwd`, `ls -l Makefile`, kiểm tra tên
-                                 tiêu Makefile           target.
-
-  `./ls: not found`          Chưa biên dịch hoặc     Vào `~/NguyenVanThaiHao_24IT054_midterm`,
-                                 đứng sai thư mục        chạy `make`, kiểm tra `ls -l new_ls`.
-
-  `Permission denied` khi liệt   Không có quyền đọc      Kiểm tra quyền tập tin bằng `ls -l`; không
-  kê                             đường dẫn hoặc chạy     tự ý dùng root để đọc dữ liệu.
-                                 file                    
-
-  `make install` báo             Không có quyền ghi vào  Chuyển sang root bằng `su`, rồi chạy
-  `mkdir: Permission denied`     `/usr/local/bin`        `make install` trong thư mục dự án.
-
-  `new_ls: command not found`    `/usr/local/bin` không  Kiểm tra `command -v new_ls`; thêm
-  sau khi cài                    có trong `PATH`         `/usr/local/bin` vào `PATH` như hướng dẫn ở
-                                                         trên.
-
-  `make test` thất bại           Lỗi hành vi hoặc khác   Xem lỗi đầu tiên, đối chiếu bằng test đơn lẻ
-                                 biệt công cụ môi trường và `ls` gốc.
-
-  Sửa code mà kết quả không đổi  Chưa tải file mới lên   Kiểm tra WinSCP đã ghi đè đúng file trong
-                                 máy ảo                  `~/NguyenVanThaiHao_24IT054_midterm/src/`.
-
-  Lỗi `undefined reference` khi  Thiếu file `.c` trong   Kiểm tra danh sách `SOURCES` trong Makefile.
-  link                           Makefile                
-
-  Tên tháng hiện sai / ký tự lạ  Locale chưa được thiết  Chương trình đã gọi `setlocale(LC_ALL, "")`;
-                                 lập                     kiểm tra biến `LANG` trên hệ thống.
-  ---------------------------------------------------------------------------------------------------
+| Hiện tượng | Nguyên nhân | Hướng xử lý |
+|---|---|---|
+| **Segmentation Fault** | Tràn bộ nhớ đệm hoặc dùng sai hàm nối chuỗi (`strcat`) | Sử dụng `snprintf` an toàn và kiểm tra `NULL` trước khi gọi `stat()`. |
+| **Memory Leak** | Quên gọi `closedir()` hoặc chưa `free()` bộ nhớ cấp phát | Đảm bảo đóng mọi con trỏ thư mục và giải phóng bộ nhớ động. |
+| **Sai thứ tự sắp xếp** | Hàm so sánh trong `qsort` sai logic hoặc thiếu cờ `-r` | Kiểm tra giá trị trả về của comparator và xử lý đảo ngược khi có `-r`. |
+| **Crash khi gặp UID/GID lạ** | Hàm `getpwuid()` / `getgrgid()` trả về `NULL` | Kiểm tra điều kiện `if (pw != NULL)` trước khi truy cập `->pw_name`. |
+| **Lỗi ghi đè tùy chọn** | Vòng lặp phân tích tham số trong `options.c` chưa đúng | Cập nhật trạng thái cờ theo đúng thứ tự từ trái qua phải trên dòng lệnh. |
+| **Lặp vô hạn đệ quy (-R)** | Gặp symbolic link trỏ vòng tròn hoặc thư mục cha | Kiểm tra cặp `st_dev` và `st_ino` để ngăn chặn việc quét lặp lại. |
+| **Tràn bộ đệm readlink()** | Bộ đệm tĩnh đọc liên kết tượng trưng quá nhỏ hoặc thiếu `\0` | Kiểm tra kích thước file (`st_size`) và đảm bảo ký tự kết thúc chuỗi. |
+| **Sai mã thoát hoặc thiếu lỗi** | Không in thông báo ra `stderr` khi đường dẫn không tồn tại | Sử dụng `perror()` và trả về exit status khác `0` khi gặp sự cố hệ thống. |
+| **Lệch cột Long Format (-l)** | Chưa tính toán độ rộng tối đa của các cột thông số trước khi in | Quét mảng danh sách trước để xác định kích thước cột rồi mới dùng `printf` căn lề. |
 
 ------------------------------------------------------------------------
 
@@ -814,4 +738,4 @@ git push origin main
 
 ## Tác giả
 
-Nguyễn Văn Thái Hào -- MSSV 24IT054\
+Nguyễn Văn Thái Hào -- MSSV 24IT054
